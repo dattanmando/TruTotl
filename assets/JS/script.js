@@ -15,6 +15,9 @@ function newItem() {
   rowItems.forEach(itemText => {
     const newLi = document.createElement("li");
     newLi.classList.add("list-group-item");  // Add Bootstrap styling
+    newLi.style.width = "300px"
+    newLi.style.whiteSpace = "normal";
+    newLi.style.overflowWrap = "break-word"
     newLi.textContent = itemText;            // Set the text of each item
     newUl.appendChild(newLi);                // Append <li> to <ul>
   });
