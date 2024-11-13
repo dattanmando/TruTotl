@@ -1,7 +1,21 @@
 const listItem = document.getElementsByClassName("list-group list-group-horizontal");
 const newItemButton = document.getElementById("add-item-button")
+const inputItem = document.getElementById("itemFormTextField")
+const inputCost = document.getElementById("costFormTextField")
+const inputTax = document.getElementById("taxFormTextField")
+const itemSaveButton = document.getElementById("itemSaveButton")
+const truTotalValue = document.getElementById("truTotalValue")
+let truTotal = 0
 
-function newItem() {
+
+// Item modal element and instance
+const itemModalElement = document.getElementById("itemModal");
+const itemModal = new bootstrap.Modal(itemModalElement); // Create an instance of the item modal
+
+
+
+function newItem(item, cost, tax, taxAmount, total) {
+
     // Create a new <ul> element
   const newUl = document.createElement("ul");
 
@@ -9,7 +23,7 @@ function newItem() {
   newUl.classList.add("list-group", "list-group-horizontal");
 
   // Define the content for each list item in the new row
-  const rowItems = ["New item 1", "New item 2", "New item 3", "New Item 4", "New Item 5"];
+  const rowItems = [`${item}`, `${cost}`, `${tax}`, `${taxAmount}`, `${total}`];
 
   // Loop through the rowItems array to create each <li> element
   rowItems.forEach(itemText => {
@@ -27,4 +41,36 @@ function newItem() {
   container.appendChild(newUl);
 }
 
-newItemButton.addEventListener('click', newItem)
+
+
+
+
+
+
+
+
+//Save the info input in for the item field within the modal
+function saveItem() {
+  const item = inputItem.value
+  const cost = inputCost.value
+  const tax = inputTax.value
+  console.log(item);  // Log the text entered in the modal
+
+  // Close the modal
+  const modalElement = document.getElementById('itemModal');
+  const modalInstance = bootstrap.Modal.getInstance(modalElement);  // Get the modal instance
+  modalInstance.hide();  // Hide the modal
+
+  const taxAmount = (cost * tax).toFixed(2);
+  const total = parseFloat(cost) + parseFloat(taxAmount);
+  
+  truTotal += total
+
+  console.log(truTotal)
+
+  truTotalValue.textContent = truTotal
+
+  newItem(item, cost, tax, taxAmount, total)
+}
+
+itemSaveButton.addEventListener('click', saveItem)
