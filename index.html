@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TruTotl</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+      rel="stylesheet" href="styles.css">
+    
+  </head>
+  <body class= "container">
+    <header>
+      <div class="display-2 text-center">
+        <h1>TruTotl</h1>
+      </div>
+      <p class= "container text-center">Find out the true cost of your cart before checkout</p>
+    </header>
+
+    <div class="d-flex justify-content-center">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#itemModal" style="padding: 10px; margin: 10px;">New Item</button> 
+    </div>
+
+    <section class="item-table">
+        <ul class="list-group list-group-horizontal">
+            
+            <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word,; font-weight: bold">Item</li>
+            <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word,; font-weight: bold">Cost</li>
+            <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word,; font-weight: bold">Tax %</li>
+            <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word,; font-weight: bold">Tax Amount</li>
+            <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word,; font-weight: bold">Checkout Cost</li>
+        </ul>
+    </section>
+
+    <section class="total-section">
+      <div>
+        <h2 style="margin-top: 50px; color: darkslategrey;">TruTotl:</h2>
+        <h1 id="truTotalValue" style="margin-top: 5px;">N/A</h1>
+      </div>
+    </section>
+  
+   
+    
+    <!-- Modal for adding Item Info -->
+    <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="itemTitle">Add Item Below ⤵️</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            
+            </div>
+            <div class="modal-body">
+              <h4>Item</h4>
+              <input type="text" class="form-control" id="itemFormTextField">
+              <h4>Cost</h4>
+              <input type="text" class="form-control" id="costFormTextField">
+              <h4>Tax</h4>
+              <input type="text" class="form-control" id="taxFormTextField">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="itemSaveButton">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+
+
+<!-- 
+    Cost modal 
+    <div class="modal fade" id="costModal" tabindex="-1" aria-labelledby="costModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h1 class="modal-title fs-5" id="costTitle">Add Cost Below ⤵️</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control" id="costFormTextField">
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="costSaveButton">Save changes</button>
+          </div>
+      </div>
+      </div>
+  </div> -->
+
+  
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src= "./assets/JS/script.js"></script>
+    </body>
+</html>
