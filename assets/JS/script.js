@@ -1,11 +1,14 @@
-const listItem = document.getElementsByClassName("list-group list-group-horizontal");
-const newItemButton = document.getElementById("add-item-button")
-const inputItem = document.getElementById("itemFormTextField")
-const inputCost = document.getElementById("costFormTextField")
-const inputTax = document.getElementById("taxFormTextField")
-const itemSaveButton = document.getElementById("itemSaveButton")
-const truTotalValue = document.getElementById("truTotalValue")
-let truTotal = 0
+const listItem = document.getElementsByClassName(
+  "list-group list-group-horizontal"
+);
+const newItemButton = document.getElementById("add-item-button");
+const inputItem = document.getElementById("itemFormTextField");
+const inputCost = document.getElementById("costFormTextField");
+const inputTax = document.getElementById("taxFormTextField");
+const itemSaveButton = document.getElementById("itemSaveButton");
+const truTotalValue = document.getElementById("truTotalValue");
+const deleteAllButton = document.getElementById("delete-all-button");
+let truTotal = 0;
 
 // Item modal element and instance
 const itemModalElement = document.getElementById("itemModal");
@@ -48,47 +51,68 @@ function saveItem() {
   if (!item || isNaN(cost) || isNaN(tax)) {
     alert("Please fill in all fields with valid values.");
     return;
+  }
+
+  // Calculate the tax amount and total
+  const taxAmount = (cost * tax).toFixed(2);
+  const total = parseFloat(cost) + parseFloat(taxAmount);
+  truTotal += total;
+  console.log(truTotal);
+
+  // Update the display
+  truTotalValue.textContent = truTotal.toFixed(2);
+  newItem(item, cost, tax, taxAmount, total);
+
+  // Store the item in localStorage
+  const storedItems = JSON.parse(localStorage.getItem("items")) || [];
+  storedItems.push({ item, cost, tax, taxAmount, total });
+  localStorage.setItem("items", JSON.stringify(storedItems));
+  localStorage.setItem("truTotal", truTotal.toFixed(2));
+
+  // Clear input fields
+  inputItem.value = "";
+  inputCost.value = "";
+  inputTax.value = "";
+
+  // Close the modal
+  const modalElement = document.getElementById("itemModal");
+  const modalInstance = bootstrap.Modal.getInstance(modalElement); // Get the modal instance
+  modalInstance.hide(); // Hide the modal
 }
 
-// Calculate the tax amount and total
-const taxAmount = (cost * tax).toFixed(2);
-const total = parseFloat(cost) + parseFloat(taxAmount);
-truTotal += total
-console.log(truTotal)
-
-// Update the display
-truTotalValue.textContent = truTotal.toFixed(2);
-newItem(item, cost, tax, taxAmount, total);
-
-// Store the item in localStorage
-const storedItems = JSON.parse(localStorage.getItem("items")) || [];
-storedItems.push({ item, cost, tax, taxAmount, total });
-localStorage.setItem("items", JSON.stringify(storedItems));
-localStorage.setItem("truTotal", truTotal.toFixed(2));
-
-// Clear input fields
-inputItem.value = '';
-inputCost.value = '';
-inputTax.value = '';
-
-// Close the modal
-  const modalElement = document.getElementById('itemModal');
-  const modalInstance = bootstrap.Modal.getInstance(modalElement);  // Get the modal instance
-  modalInstance.hide();  // Hide the modal
-}
-// Load items from local storage on page load
 function loadItems() {
   const storedItems = JSON.parse(localStorage.getItem("items")) || [];
   truTotal = parseFloat(localStorage.getItem("truTotal")) || 0;
+
   truTotalValue.textContent = truTotal.toFixed(2);
 
   storedItems.forEach(({ item, cost, tax, taxAmount, total }) => {
-      newItem(item, cost, tax, taxAmount, total);
+    newItem(item, cost, tax, taxAmount, total);
   });
 }
 
+function clearAllitems() {
+  const container = `
+    <ul class="list-group list-group-horizontal-md">
+      <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word; font-weight: bold;">Item</li>
+      <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word; font-weight: bold;">Cost</li>
+      <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word; font-weight: bold;">Tax %</li>
+      <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word; font-weight: bold;">Tax Amount</li>
+      <li class="list-group-item" style="width: 300px; white-space: normal; overflow-wrap: break-word; font-weight: bold;">Checkout Cost</li>
+    </ul>`;
+
+  truTotal = 0;
+  truTotalValue.textContent = "0.00";
+
+  localStorage.removeItem("items");
+  localStorage.removeItem("truTotal");
+  location.reload();
+}
+
 // Load items from localStorage
-itemSaveButton.addEventListener('click', saveItem)
+itemSaveButton.addEventListener("click", saveItem);
 
 // Load items when the page loads
 window.addEventListener("load", loadItems);
+
+deleteAllButton.addEventListener("click", clearAllitems);
