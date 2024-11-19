@@ -1,0 +1,7 @@
+@media (max-width: 768px) {
+  ul,
+  li {
+    border-bottom: 500px solid black;
+    color: blue;
+  }
+}

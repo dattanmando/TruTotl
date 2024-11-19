@@ -12,25 +12,25 @@ const itemModalElement = document.getElementById("itemModal");
 const itemModal = new bootstrap.Modal(itemModalElement); // Create an instance of the item modal
 
 function newItem(item, cost, tax, taxAmount, total) {
-
-    // Create a new <ul> element
+  // Create a new <ul> element
   const newUl = document.createElement("ul");
+  newUl.style.marginTop = "15px";
 
   // Add Bootstrap classes for styling
-  newUl.classList.add("list-group", "list-group-horizontal");
+  newUl.classList.add("list-group", "list-group-horizontal-md");
 
   // Define the content for each list item in the new row
   const rowItems = [`${item}`, `${cost}`, `${tax}`, `${taxAmount}`, `${total}`];
 
   // Loop through the rowItems array to create each <li> element
-  rowItems.forEach(itemText => {
+  rowItems.forEach((itemText) => {
     const newLi = document.createElement("li");
-    newLi.classList.add("list-group-item");  // Add Bootstrap styling
-    newLi.style.width = "300px"
+    newLi.classList.add("list-group-item"); // Add Bootstrap styling
+    newLi.style.width = "300px";
     newLi.style.whiteSpace = "normal";
-    newLi.style.overflowWrap = "break-word"
-    newLi.textContent = itemText;            // Set the text of each item
-    newUl.appendChild(newLi);                // Append <li> to <ul>
+    newLi.style.overflowWrap = "break-word";
+    newLi.textContent = itemText; // Set the text of each item
+    newUl.appendChild(newLi); // Append <li> to <ul>
   });
 
   // Append the new <ul> to a container section on the page
@@ -40,10 +40,10 @@ function newItem(item, cost, tax, taxAmount, total) {
 
 //Save the info input in for the item field within the modal
 function saveItem() {
-  const item = inputItem.value
-  const cost = inputCost.value
-  const tax = inputTax.value
-  console.log(item);  // Log the text entered in the modal
+  const item = inputItem.value;
+  const cost = inputCost.value;
+  const tax = inputTax.value;
+  console.log(item); // Log the text entered in the modal
 
   if (!item || isNaN(cost) || isNaN(tax)) {
     alert("Please fill in all fields with valid values.");
